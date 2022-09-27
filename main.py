@@ -26,7 +26,7 @@ class WebManipulator:
 
         # In dry-run, we hide the browser (use a headless one)
         options = webdriver.ChromeOptions()
-        if not dry_run:
+        if not self.dry_run:
             options.add_argument('headless')
             # This is just problems with wrongly set meta-state for the website
             options.add_argument('window-size=1200x600')
@@ -57,7 +57,8 @@ class WebManipulator:
         self.driver.find_element(By.XPATH, self.EXPANDER_BUTTON).click()
         self.driver.find_element(By.XPATH, self.RESTART_BUTTON).click()
         self.driver.implicitly_wait(self.WAIT_TIME)  # Yes... let's wait
-        self.driver.find_element(By.XPATH, self.CONFIRM_BUTTON).click()
+        if not self.dry_run
+            self.driver.find_element(By.XPATH, self.CONFIRM_BUTTON).click()
 
     def execute(self, disable_kill=False):
         self._login()
